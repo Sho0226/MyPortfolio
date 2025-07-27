@@ -1,4 +1,4 @@
-import styles from './TabBar.module.css';
+import styles from "./TabBar.module.css";
 
 interface Tab {
   id: string;
@@ -19,7 +19,9 @@ const TabBar = ({ tabs, activeTab, onTabClick, onTabClose }: TabBarProps) => {
       {tabs.map((tab) => (
         <div
           key={tab.id}
-          className={`${styles.tab} ${tab.id === activeTab ? styles.active : ''}`}
+          className={`${styles.tab} ${
+            tab.id === activeTab ? styles.active : ""
+          }`}
           onClick={() => onTabClick(tab.id)}
         >
           <span className={styles.tabName}>{tab.name}</span>

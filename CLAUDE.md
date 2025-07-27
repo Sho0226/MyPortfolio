@@ -16,12 +16,14 @@ This is a Next.js 15.3.4 portfolio website bootstrapped with `create-next-app`. 
 ## Architecture
 
 ### Tech Stack
+
 - **Framework**: Next.js 15.3.4 with App Router
 - **Language**: TypeScript with strict mode enabled
 - **Styling**: CSS Modules (see `page.module.css`)
 - **Fonts**: Geist and Geist Mono from `next/font/google`
 
 ### Project Structure
+
 - `src/app/` - App Router pages and layouts
   - `layout.tsx` - Root layout with font configuration
   - `page.tsx` - Homepage component
@@ -31,6 +33,7 @@ This is a Next.js 15.3.4 portfolio website bootstrapped with `create-next-app`. 
 - `tsconfig.json` - TypeScript configuration with path mapping (`@/*` → `./src/*`)
 
 ### Key Patterns
+
 - Uses Next.js Image component for optimized images
 - CSS Modules for component-scoped styling
 - TypeScript with strict type checking enabled
@@ -39,6 +42,7 @@ This is a Next.js 15.3.4 portfolio website bootstrapped with `create-next-app`. 
 ## Development Notes
 
 The main page is currently the default Next.js welcome page. When developing new features:
+
 - Follow the existing CSS Modules pattern for styling
 - Use the Next.js Image component for images
 - Maintain TypeScript strict mode compliance
