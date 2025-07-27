@@ -1,0 +1,72 @@
+.tabBar {
+  display: flex;
+  background-color: #2d2d30;
+  border-bottom: 1px solid #3c3c3c;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tabBar::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+  max-width: 200px;
+  height: 32px;
+  padding: 0 12px;
+  background-color: #2d2d30;
+  border-right: 1px solid #3c3c3c;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.1s ease;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+  color: #969696;
+}
+
+.tab:hover {
+  background-color: #37373d;
+}
+
+.tab.active {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+.tabName {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #969696;
+  font-size: 16px;
+  margin-left: 8px;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.tab:hover .closeButton {
+  opacity: 1;
+}
+
+.closeButton:hover {
+  background-color: #505050;
+  border-radius: 2px;
+  color: #ffffff;
+}
