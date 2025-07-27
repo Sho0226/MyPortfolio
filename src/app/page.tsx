@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ActivityBar from "@/components/ActivityBar";
 import Sidebar from "@/components/Sidebar";
 import MainEditor from "@/components/MainEditor";
 import styles from "./page.module.css";
@@ -43,6 +44,7 @@ export default function Home() {
   ]);
 
   const [activeTab, setActiveTab] = useState("about.md");
+  const [activeActivity, setActiveActivity] = useState("explorer");
 
   const fileContents: FileContent = {
     "about.md": {
@@ -219,9 +221,19 @@ export default Project3;`,
     }
   };
 
+  const handleActivityChange = (activity: string) => {
+    setActiveActivity(activity);
+  };
+
   return (
     <div className={styles.vscodeLayout}>
-      <Sidebar onFileClick={handleFileClick} />
+      <ActivityBar
+        activeActivity={activeActivity}
+        onActivityChange={handleActivityChange}
+      />
+      {activeActivity === "explorer" && (
+        <Sidebar onFileClick={handleFileClick} />
+      )}
       <MainEditor
         tabs={tabs}
         activeTab={activeTab}

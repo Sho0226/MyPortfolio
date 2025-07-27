@@ -1,4 +1,12 @@
 import { useState } from "react";
+import {
+  VscFolder,
+  VscFolderOpened,
+  VscFile,
+  VscFileCode,
+  VscJson,
+  VscMarkdown,
+} from "react-icons/vsc";
 import styles from "./Sidebar.module.css";
 
 interface FileItem {
@@ -43,6 +51,27 @@ const Sidebar = ({ onFileClick }: SidebarProps) => {
     });
   };
 
+  const getFileIcon = (fileName: string, isFolder: boolean, isExpanded?: boolean) => {
+    if (isFolder) {
+      return isExpanded ? <VscFolderOpened /> : <VscFolder />;
+    }
+    
+    const extension = fileName.split('.').pop()?.toLowerCase();
+    switch (extension) {
+      case 'md':
+        return <VscMarkdown />;
+      case 'json':
+        return <VscJson />;
+      case 'ts':
+      case 'tsx':
+      case 'js':
+      case 'jsx':
+        return <VscFileCode />;
+      default:
+        return <VscFile />;
+    }
+  };
+
   const renderFileItem = (item: FileItem, depth = 0) => {
     const isExpanded = expandedFolders.has(item.name);
 
@@ -73,9 +102,9 @@ const Sidebar = ({ onFileClick }: SidebarProps) => {
           ) : (
             <span className={styles.chevronSpacer}></span>
           )}
-          <span className={styles.fileIcon}>
-            {item.type === "folder" ? (isExpanded ? "📂" : "📁") : "📄"}
-          </span>
+          <div className={styles.fileIcon}>
+            {getFileIcon(item.name, item.type === "folder", isExpanded)}
+          </div>
           {item.name}
         </div>
         {item.children && isExpanded && (

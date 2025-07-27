@@ -1,0 +1,72 @@
+.activityBar {
+  width: 48px;
+  height: 100vh;
+  background-color: #333333;
+  border-right: 1px solid #3c3c3c;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.activityItem {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.1s ease;
+  border-left: 2px solid transparent;
+}
+
+.activityItem:hover {
+  background-color: #37373d;
+}
+
+.activityItem.active {
+  background-color: #37373d;
+  border-left: 2px solid #007acc;
+}
+
+.activityItem.active::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background-color: #007acc;
+}
+
+.activityIcon {
+  font-size: 22px;
+  line-height: 1;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cccccc;
+  transition: color 0.1s ease;
+}
+
+.activityItem:hover .activityIcon {
+  color: #ffffff;
+}
+
+.activityItem.active .activityIcon {
+  color: #ffffff;
+}
+
+.bottomActions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

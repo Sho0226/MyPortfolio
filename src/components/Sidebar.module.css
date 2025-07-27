@@ -80,7 +80,11 @@
 
 .fileIcon {
   margin-right: 6px;
-  font-size: 12px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cccccc;
 }
 
 .children {
