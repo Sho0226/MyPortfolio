@@ -5,6 +5,7 @@ import ActivityBar from "@/components/ActivityBar";
 import Sidebar from "@/components/Sidebar";
 import SearchPanel from "@/components/SearchPanel";
 import SourceControlPanel from "@/components/SourceControlPanel";
+import ExtensionsPanel from "@/components/ExtensionsPanel";
 import MainEditor from "@/components/MainEditor";
 import styles from "./page.module.css";
 
@@ -260,6 +261,9 @@ export default Project3;`,
       )}
       {activeActivity === "source-control" && (
         <SourceControlPanel />
+      )}
+      {activeActivity === "extensions" && (
+        <ExtensionsPanel />
       )}
       <MainEditor
         tabs={tabs}

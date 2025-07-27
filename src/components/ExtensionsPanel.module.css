@@ -1,0 +1,291 @@
+.extensionsPanel {
+  width: 250px;
+  height: 100vh;
+  background-color: #252526;
+  border-right: 1px solid #3c3c3c;
+  color: #cccccc;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 8px 12px;
+  background-color: #2d2d30;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.refreshButton {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  transition: color 0.1s ease;
+}
+
+.refreshButton:hover {
+  color: #cccccc;
+}
+
+.searchSection {
+  padding: 8px;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  background-color: #3c3c3c;
+  border: 1px solid #464647;
+  border-radius: 2px;
+  height: 26px;
+}
+
+.searchContainer:focus-within {
+  border-color: #007acc;
+}
+
+.searchIcon {
+  padding: 0 6px;
+  color: #888;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #cccccc;
+  font-size: 13px;
+  padding: 4px 4px;
+  outline: none;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.searchInput::placeholder {
+  color: #888;
+}
+
+.categories {
+  padding: 8px;
+  border-bottom: 1px solid #3c3c3c;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.categoryButton {
+  background: none;
+  border: none;
+  color: #cccccc;
+  padding: 4px 8px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 2px;
+  transition: background-color 0.1s ease;
+  font-family: inherit;
+}
+
+.categoryButton:hover {
+  background-color: #2a2d2e;
+}
+
+.categoryButton.active {
+  background-color: #094771;
+  color: #ffffff;
+}
+
+.extensionsList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.extensionItem {
+  padding: 12px;
+  border-bottom: 1px solid #3c3c3c;
+  transition: background-color 0.1s ease;
+  cursor: pointer;
+}
+
+.extensionItem:hover {
+  background-color: #2a2d2e;
+}
+
+.extensionItem:last-child {
+  border-bottom: none;
+}
+
+.extensionHeader {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.extensionIcon {
+  width: 32px;
+  height: 32px;
+  background-color: #3c3c3c;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.extensionInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.extensionName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2px;
+  word-break: break-word;
+}
+
+.extensionPublisher {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  color: #888;
+}
+
+.publisherIcon {
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+.installButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #0e639c;
+  border: none;
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+.installButton:hover {
+  background-color: #1177bb;
+}
+
+.installButton.installed {
+  background-color: #388a34;
+}
+
+.installButton.installed:hover {
+  background-color: #4d9f4d;
+}
+
+.extensionDescription {
+  font-size: 12px;
+  color: #cccccc;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.extensionMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  color: #888;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.starFilled {
+  color: #ffcc02;
+  font-size: 10px;
+}
+
+.starHalf {
+  color: #ffcc02;
+  font-size: 10px;
+}
+
+.starEmpty {
+  color: #555;
+  font-size: 10px;
+}
+
+.ratingText {
+  margin-left: 4px;
+  font-size: 10px;
+}
+
+.downloads {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.downloadIcon {
+  font-size: 10px;
+}
+
+.version {
+  font-family: monospace;
+  background-color: #3c3c3c;
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-size: 10px;
+}
+
+.noResults {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  text-align: center;
+  color: #888;
+}
+
+.noResultsIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.noResultsText {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.noResultsSubtext {
+  font-size: 12px;
+  opacity: 0.8;
+}
