@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   VscFolder,
   VscFolderOpened,
@@ -17,12 +16,15 @@ interface FileItem {
 
 interface SidebarProps {
   onFileClick: (fileName: string) => void;
+  expandedFolders: Set<string>;
+  setExpandedFolders: React.Dispatch<React.SetStateAction<Set<string>>>;
 }
 
-const Sidebar = ({ onFileClick }: SidebarProps) => {
-  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(
-    new Set(["projects"])
-  );
+const Sidebar = ({
+  onFileClick,
+  expandedFolders,
+  setExpandedFolders,
+}: SidebarProps) => {
   const portfolioFiles: FileItem[] = [
     { name: "about.md", type: "file" },
     {
@@ -51,21 +53,25 @@ const Sidebar = ({ onFileClick }: SidebarProps) => {
     });
   };
 
-  const getFileIcon = (fileName: string, isFolder: boolean, isExpanded?: boolean) => {
+  const getFileIcon = (
+    fileName: string,
+    isFolder: boolean,
+    isExpanded?: boolean
+  ) => {
     if (isFolder) {
       return isExpanded ? <VscFolderOpened /> : <VscFolder />;
     }
-    
-    const extension = fileName.split('.').pop()?.toLowerCase();
+
+    const extension = fileName.split(".").pop()?.toLowerCase();
     switch (extension) {
-      case 'md':
+      case "md":
         return <VscMarkdown />;
-      case 'json':
+      case "json":
         return <VscJson />;
-      case 'ts':
-      case 'tsx':
-      case 'js':
-      case 'jsx':
+      case "ts":
+      case "tsx":
+      case "js":
+      case "jsx":
         return <VscFileCode />;
       default:
         return <VscFile />;

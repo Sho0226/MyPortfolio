@@ -21,6 +21,15 @@ This project uses Prettier for automatic code formatting. Files are automaticall
 - 2 spaces for indentation
 - Trailing commas where valid
 
+## Usage Monitoring
+
+When users ask about token usage, remaining credits, or usage limits, run:
+```bash
+npx ccusage@latest
+```
+
+This command provides detailed information about Claude Code usage and remaining limits.
+
 ## Architecture
 
 ### Tech Stack

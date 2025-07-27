@@ -1,0 +1,195 @@
+.sourceControlPanel {
+  width: 250px;
+  height: 100vh;
+  background-color: #252526;
+  border-right: 1px solid #3c3c3c;
+  color: #cccccc;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 8px 12px;
+  background-color: #2d2d30;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.refreshButton {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  transition: color 0.1s ease;
+}
+
+.refreshButton:hover {
+  color: #cccccc;
+}
+
+.refreshButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.repoInfo {
+  padding: 12px;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.repoHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.repoIcon {
+  margin-right: 8px;
+  font-size: 16px;
+  color: #007acc;
+}
+
+.repoDetails {
+  flex: 1;
+}
+
+.repoName {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.repoOwner {
+  font-size: 12px;
+  color: #888;
+}
+
+.branchInfo {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  background-color: #2d2d30;
+  border-radius: 2px;
+  margin-top: 8px;
+}
+
+.branchIcon {
+  margin-right: 6px;
+  font-size: 14px;
+  color: #888;
+}
+
+.branchName {
+  flex: 1;
+  font-size: 12px;
+  color: #cccccc;
+}
+
+.syncIcon {
+  font-size: 12px;
+  color: #888;
+}
+
+.commitList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.sectionIcon {
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+.loading {
+  padding: 12px;
+  text-align: center;
+  color: #888;
+  font-size: 12px;
+}
+
+.commitItem {
+  padding: 8px 12px;
+  border-bottom: 1px solid #3c3c3c;
+  transition: background-color 0.1s ease;
+  cursor: pointer;
+}
+
+.commitItem:hover {
+  background-color: #2a2d2e;
+}
+
+.commitItem:last-child {
+  border-bottom: none;
+}
+
+.commitHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.commitAuthor {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.avatarIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  color: #888;
+}
+
+.authorName {
+  font-size: 11px;
+  color: #888;
+}
+
+.commitDate {
+  font-size: 10px;
+  color: #666;
+}
+
+.commitMessage {
+  font-size: 12px;
+  color: #cccccc;
+  margin-bottom: 4px;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.commitSha {
+  font-size: 10px;
+  color: #007acc;
+  font-family: monospace;
+}

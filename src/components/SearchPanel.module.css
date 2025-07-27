@@ -1,0 +1,214 @@
+.searchPanel {
+  width: 250px;
+  height: 100vh;
+  background-color: #252526;
+  border-right: 1px solid #3c3c3c;
+  color: #cccccc;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchHeader {
+  padding: 8px 12px;
+  background-color: #2d2d30;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+}
+
+.searchInputs {
+  padding: 8px;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  background-color: #3c3c3c;
+  border: 1px solid #464647;
+  border-radius: 2px;
+  margin-bottom: 4px;
+  position: relative;
+  height: 26px;
+}
+
+.inputContainer:focus-within {
+  border-color: #007acc;
+}
+
+.inputIcon {
+  padding: 0 6px;
+  color: #888;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #cccccc;
+  font-size: 13px;
+  padding: 4px 4px;
+  outline: none;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.searchInput::placeholder {
+  color: #888;
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  color: #888;
+  padding: 0 6px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.1s ease;
+  flex-shrink: 0;
+  height: 100%;
+}
+
+.toggleButton:hover {
+  color: #cccccc;
+}
+
+.toggleButton.active {
+  color: #cccccc;
+  transform: rotate(180deg);
+}
+
+.searchOptions {
+  display: flex;
+  gap: 2px;
+  margin-top: 4px;
+}
+
+.optionButton {
+  background: none;
+  border: 1px solid #464647;
+  color: #888;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.1s ease;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.optionButton:hover {
+  background-color: #37373d;
+  border-color: #555;
+  color: #cccccc;
+}
+
+.optionButton.active {
+  background-color: #0e639c;
+  border-color: #007acc;
+  color: #ffffff;
+}
+
+.searchResults {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.resultsHeader {
+  padding: 4px 12px;
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.fileGroup {
+  margin-bottom: 8px;
+}
+
+.fileName {
+  display: flex;
+  align-items: center;
+  padding: 3px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.1s ease;
+  font-size: 13px;
+}
+
+.fileName:hover {
+  background-color: #2a2d2e;
+}
+
+.chevron {
+  margin-right: 6px;
+  font-size: 10px;
+  color: #888;
+  transition: transform 0.15s ease;
+  transform-origin: center;
+}
+
+.chevron.expanded {
+  transform: rotate(90deg);
+}
+
+.chevron.collapsed {
+  transform: rotate(0deg);
+}
+
+.fileResults {
+  margin-left: 16px;
+}
+
+.searchResult {
+  display: flex;
+  align-items: flex-start;
+  padding: 2px 12px;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.searchResult:hover {
+  background-color: #2a2d2e;
+}
+
+.lineNumber {
+  color: #858585;
+  font-size: 11px;
+  min-width: 24px;
+  text-align: right;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+
+.resultContent {
+  flex: 1;
+  font-size: 12px;
+  overflow: hidden;
+  word-break: break-all;
+  line-height: 1.3;
+}
+
+.highlight {
+  background-color: #613a00;
+  color: #ffcc02;
+  padding: 0 1px;
+  border-radius: 1px;
+}

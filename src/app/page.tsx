@@ -3,6 +3,8 @@
 import { useState } from "react";
 import ActivityBar from "@/components/ActivityBar";
 import Sidebar from "@/components/Sidebar";
+import SearchPanel from "@/components/SearchPanel";
+import SourceControlPanel from "@/components/SourceControlPanel";
 import MainEditor from "@/components/MainEditor";
 import styles from "./page.module.css";
 
@@ -45,6 +47,9 @@ export default function Home() {
 
   const [activeTab, setActiveTab] = useState("about.md");
   const [activeActivity, setActiveActivity] = useState("explorer");
+  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(
+    new Set(["projects"])
+  );
 
   const fileContents: FileContent = {
     "about.md": {
@@ -183,9 +188,21 @@ export default Project3;`,
     },
   };
 
-  const handleFileClick = (fileName: string) => {
+  const handleFileClick = (fileName: string, options?: { fromSearch?: boolean; switchToExplorer?: boolean }) => {
     const fileContent = fileContents[fileName];
     if (!fileContent) return;
+
+    // 検索からのクリックの場合、必要なフォルダを開く（ビュー切り替えは制御可能）
+    if (options?.fromSearch) {
+      // projects内のファイルの場合、projectsフォルダを開く
+      if (fileName.startsWith("project")) {
+        setExpandedFolders(prev => new Set([...prev, "projects"]));
+      }
+      // switchToExplorerが明示的にtrueの場合のみExplorerに切り替え
+      if (options.switchToExplorer) {
+        setActiveActivity("explorer");
+      }
+    }
 
     // 既にタブが開いているかチェック
     const existingTab = tabs.find((tab) => tab.id === fileName);
@@ -232,7 +249,17 @@ export default Project3;`,
         onActivityChange={handleActivityChange}
       />
       {activeActivity === "explorer" && (
-        <Sidebar onFileClick={handleFileClick} />
+        <Sidebar 
+          onFileClick={handleFileClick} 
+          expandedFolders={expandedFolders}
+          setExpandedFolders={setExpandedFolders}
+        />
+      )}
+      {activeActivity === "search" && (
+        <SearchPanel onFileClick={(fileName) => handleFileClick(fileName, { fromSearch: true })} />
+      )}
+      {activeActivity === "source-control" && (
+        <SourceControlPanel />
       )}
       <MainEditor
         tabs={tabs}

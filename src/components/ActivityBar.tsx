@@ -12,7 +12,10 @@ interface ActivityBarProps {
   onActivityChange: (activity: string) => void;
 }
 
-const ActivityBar = ({ activeActivity, onActivityChange }: ActivityBarProps) => {
+const ActivityBar = ({
+  activeActivity,
+  onActivityChange,
+}: ActivityBarProps) => {
   const activities = [
     {
       id: "explorer",
