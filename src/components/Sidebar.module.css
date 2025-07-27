@@ -43,10 +43,39 @@
   line-height: 20px;
   transition: background-color 0.1s ease;
   cursor: pointer;
+  gap: 2px;
 }
 
 .fileName:hover {
   background-color: #2a2d2e;
+}
+
+.chevron {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
+  font-size: 10px;
+  color: #cccccc;
+  transition: transform 0.15s ease;
+  transform-origin: center;
+  text-align: center;
+  line-height: 16px;
+}
+
+.chevron.expanded {
+  transform: rotate(90deg);
+}
+
+.chevron.collapsed {
+  transform: rotate(0deg);
+}
+
+.chevronSpacer {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
 }
 
 .fileIcon {
@@ -56,4 +85,16 @@
 
 .children {
   margin-left: 8px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.children.expanded {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.children.collapsed {
+  max-height: 0;
+  opacity: 0;
 }

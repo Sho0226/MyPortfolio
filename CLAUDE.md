@@ -13,6 +13,14 @@ This is a Next.js 15.3.4 portfolio website bootstrapped with `create-next-app`. 
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint to check code quality
 
+## Code Formatting
+
+This project uses Prettier for automatic code formatting. Files are automatically formatted on save according to Prettier configuration. Key formatting rules:
+- Double quotes for strings
+- Semicolons included
+- 2 spaces for indentation
+- Trailing commas where valid
+
 ## Architecture
 
 ### Tech Stack

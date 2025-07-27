@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./Sidebar.module.css";
 
 interface FileItem {
@@ -11,6 +12,9 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ onFileClick }: SidebarProps) => {
+  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(
+    new Set(["projects"])
+  );
   const portfolioFiles: FileItem[] = [
     { name: "about.md", type: "file" },
     {
@@ -27,28 +31,65 @@ const Sidebar = ({ onFileClick }: SidebarProps) => {
     { name: "resume.pdf", type: "file" },
   ];
 
-  const renderFileItem = (item: FileItem, depth = 0) => (
-    <div
-      key={item.name}
-      className={styles.fileItem}
-      style={{ paddingLeft: `${depth * 16}px` }}
-    >
+  const toggleFolder = (folderName: string) => {
+    setExpandedFolders((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(folderName)) {
+        newSet.delete(folderName);
+      } else {
+        newSet.add(folderName);
+      }
+      return newSet;
+    });
+  };
+
+  const renderFileItem = (item: FileItem, depth = 0) => {
+    const isExpanded = expandedFolders.has(item.name);
+
+    return (
       <div
-        className={styles.fileName}
-        onClick={() => item.type === "file" && onFileClick(item.name)}
+        key={item.name}
+        className={styles.fileItem}
+        style={{ paddingLeft: `${depth * 16}px` }}
       >
-        <span className={styles.fileIcon}>
-          {item.type === "folder" ? "📁" : "📄"}
-        </span>
-        {item.name}
-      </div>
-      {item.children && (
-        <div className={styles.children}>
-          {item.children.map((child) => renderFileItem(child, depth + 1))}
+        <div
+          className={styles.fileName}
+          onClick={() => {
+            if (item.type === "file") {
+              onFileClick(item.name);
+            } else {
+              toggleFolder(item.name);
+            }
+          }}
+        >
+          {item.type === "folder" ? (
+            <span
+              className={`${styles.chevron} ${
+                isExpanded ? styles.expanded : styles.collapsed
+              }`}
+            >
+              ▶
+            </span>
+          ) : (
+            <span className={styles.chevronSpacer}></span>
+          )}
+          <span className={styles.fileIcon}>
+            {item.type === "folder" ? (isExpanded ? "📂" : "📁") : "📄"}
+          </span>
+          {item.name}
         </div>
-      )}
-    </div>
-  );
+        {item.children && isExpanded && (
+          <div
+            className={`${styles.children} ${
+              isExpanded ? styles.expanded : styles.collapsed
+            }`}
+          >
+            {item.children.map((child) => renderFileItem(child, depth + 1))}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div className={styles.sidebar}>
