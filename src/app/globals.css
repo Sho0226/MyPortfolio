@@ -31,12 +31,36 @@ body {
 }
 
 a {
-  color: inherit;
+  color: #0070f3;
   text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: #0051cc;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a:active {
+  color: #003d99;
 }
 
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+
+  a {
+    color: #66b3ff;
+  }
+
+  a:hover {
+    color: #99ccff;
+    text-decoration: underline;
+  }
+
+  a:active {
+    color: #cce6ff;
   }
 }

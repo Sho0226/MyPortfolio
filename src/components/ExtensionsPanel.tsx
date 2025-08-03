@@ -6,9 +6,6 @@ import {
   VscSearch,
   VscCloudDownload,
   VscCheck,
-  VscStarFull,
-  VscStarEmpty,
-  VscAccount,
   VscRefresh,
 } from "react-icons/vsc";
 import styles from "./ExtensionsPanel.module.css";

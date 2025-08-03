@@ -1,4 +1,5 @@
 import TabBar from "./TabBar";
+import ReactMarkdown from "react-markdown";
 import styles from "./MainEditor.module.css";
 
 interface Tab {
@@ -42,7 +43,25 @@ const MainEditor = ({
               ))}
             </div>
             <div className={styles.codeArea}>
-              <pre className={styles.code}>{activeTabContent.content}</pre>
+              {activeTabContent.language === "markdown" ? (
+                <div className={styles.markdownContent}>
+                  <ReactMarkdown
+                    components={{
+                      a: ({ node, ...props }) => (
+                        <a
+                          {...props}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        />
+                      ),
+                    }}
+                  >
+                    {activeTabContent.content}
+                  </ReactMarkdown>
+                </div>
+              ) : (
+                <pre className={styles.code}>{activeTabContent.content}</pre>
+              )}
             </div>
           </div>
         ) : (
