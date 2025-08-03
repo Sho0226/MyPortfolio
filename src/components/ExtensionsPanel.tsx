@@ -13,15 +13,15 @@ import {
 } from "react-icons/vsc";
 import styles from "./ExtensionsPanel.module.css";
 
-interface Extension {
+interface Skill {
   id: string;
   name: string;
-  publisher: string;
+  level: "Beginner" | "Intermediate" | "Advanced" | "Expert";
+  experience: string;
   description: string;
-  version: string;
-  downloads: number;
-  rating: number;
-  installed: boolean;
+  proficiency: number;
+  yearsOfExperience: number;
+  acquired: boolean;
   category: string;
   icon: string;
 }
@@ -29,196 +29,184 @@ interface Extension {
 const ExtensionsPanel = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [extensions, setExtensions] = useState<Extension[]>([
+  const [skills, setSkills] = useState<Skill[]>([
     {
-      id: "portfolio-theme",
-      name: "Portfolio Dark Theme",
-      publisher: "PortfolioDev",
-      description: "A beautiful dark theme optimized for portfolio development",
-      version: "1.2.0",
-      downloads: 125000,
-      rating: 4.8,
-      installed: true,
-      category: "themes",
-      icon: "🎨",
-    },
-    {
-      id: "react-snippets",
-      name: "React Snippets Pro",
-      publisher: "ReactTeam",
+      id: "react",
+      name: "React",
+      level: "Advanced",
+      experience: "1.5 years",
       description:
-        "Essential React and TypeScript code snippets for faster development",
-      version: "2.1.5",
-      downloads: 890000,
-      rating: 4.9,
-      installed: true,
-      category: "snippets",
+        "Building modern web applications with React and its ecosystem",
+      proficiency: 85,
+      yearsOfExperience: 1.5,
+      acquired: false,
+      category: "frontend",
       icon: "⚛️",
     },
     {
-      id: "tailwind-intellisense",
-      name: "Tailwind CSS IntelliSense",
-      publisher: "TailwindLabs",
-      description: "Intelligent Tailwind CSS class name completion and linting",
-      version: "0.9.1",
-      downloads: 2100000,
-      rating: 4.7,
-      installed: false,
-      category: "language-support",
-      icon: "🎯",
+      id: "typescript",
+      name: "TypeScript",
+      level: "Advanced",
+      experience: "1.5 years",
+      description: "Type-safe JavaScript development for scalable applications",
+      proficiency: 85,
+      yearsOfExperience: 1.5,
+      acquired: false,
+      category: "frontend",
+      icon: "🔷",
     },
     {
-      id: "git-lens",
-      name: "GitLens — Git supercharged",
-      publisher: "GitKraken",
-      description:
-        "Supercharge Git within VS Code and unlock untapped knowledge",
-      version: "13.6.0",
-      downloads: 15000000,
-      rating: 4.8,
-      installed: true,
-      category: "source-control",
-      icon: "🔍",
+      id: "nextjs",
+      name: "Next.js",
+      level: "Intermediate",
+      experience: "1.5 years",
+      description: "Full-stack React framework for production applications",
+      proficiency: 75,
+      yearsOfExperience: 1.5,
+      acquired: false,
+      category: "frontend",
+      icon: "⚡",
     },
     {
-      id: "prettier",
-      name: "Prettier - Code formatter",
-      publisher: "Prettier",
-      description: "Code formatter using prettier for consistent code style",
-      version: "9.10.4",
-      downloads: 28000000,
-      rating: 4.6,
-      installed: true,
-      category: "formatters",
-      icon: "💅",
+      id: "nodejs",
+      name: "Node.js",
+      level: "Intermediate",
+      experience: "1.5 years",
+      description: "Server-side JavaScript development and API creation",
+      proficiency: 75,
+      yearsOfExperience: 1.5,
+      acquired: false,
+      category: "backend",
+      icon: "🟢",
     },
     {
-      id: "portfolio-live-server",
-      name: "Live Server",
-      publisher: "ritwickdey",
-      description: "Launch a development local Server with live reload feature",
-      version: "5.7.9",
-      downloads: 45000000,
-      rating: 4.5,
-      installed: false,
-      category: "other",
-      icon: "🚀",
+      id: "css",
+      name: "CSS/Sass",
+      level: "Intermediate",
+      experience: "2 years",
+      description: "Modern CSS techniques and responsive design principles",
+      proficiency: 70,
+      yearsOfExperience: 2,
+      acquired: false,
+      category: "frontend",
+      icon: "🎨",
     },
     {
-      id: "material-icons",
-      name: "Material Icon Theme",
-      publisher: "PKief",
-      description: "Material Design Icons for Visual Studio Code",
-      version: "4.28.0",
-      downloads: 8500000,
-      rating: 4.9,
-      installed: false,
-      category: "themes",
-      icon: "📁",
+      id: "git",
+      name: "Git",
+      level: "Intermediate",
+      experience: "2.5 years",
+      description: "Version control and collaborative development workflows",
+      proficiency: 75,
+      yearsOfExperience: 2.5,
+      acquired: false,
+      category: "tools",
+      icon: "🔀",
     },
     {
-      id: "auto-rename-tag",
-      name: "Auto Rename Tag",
-      publisher: "formulahendry",
-      description: "Auto rename paired HTML/XML tag",
-      version: "0.1.10",
-      downloads: 6200000,
-      rating: 4.4,
-      installed: false,
-      category: "language-support",
-      icon: "🏷️",
+      id: "docker",
+      name: "Docker",
+      level: "Intermediate",
+      experience: "1.5 years",
+      description: "Containerization and deployment optimization",
+      proficiency: 70,
+      yearsOfExperience: 1.5,
+      acquired: false,
+      category: "devops",
+      icon: "🐳",
+    },
+    {
+      id: "python",
+      name: "Python",
+      level: "Beginner",
+      experience: "1 year",
+      description: "Data analysis and automation scripting",
+      proficiency: 45,
+      yearsOfExperience: 1,
+      acquired: false,
+      category: "backend",
+      icon: "🐍",
     },
   ]);
 
   const categories = [
-    { id: "all", name: "All", count: extensions.length },
+    { id: "all", name: "All Skills", count: skills.length },
     {
-      id: "installed",
-      name: "Installed",
-      count: extensions.filter((e) => e.installed).length,
+      id: "acquired",
+      name: "Acquired",
+      count: skills.filter((s) => s.acquired).length,
     },
     {
-      id: "themes",
-      name: "Themes",
-      count: extensions.filter((e) => e.category === "themes").length,
+      id: "frontend",
+      name: "Frontend",
+      count: skills.filter((s) => s.category === "frontend").length,
     },
     {
-      id: "snippets",
-      name: "Snippets",
-      count: extensions.filter((e) => e.category === "snippets").length,
+      id: "backend",
+      name: "Backend",
+      count: skills.filter((s) => s.category === "backend").length,
     },
     {
-      id: "language-support",
-      name: "Language Support",
-      count: extensions.filter((e) => e.category === "language-support").length,
+      id: "tools",
+      name: "Tools",
+      count: skills.filter((s) => s.category === "tools").length,
     },
     {
-      id: "formatters",
-      name: "Formatters",
-      count: extensions.filter((e) => e.category === "formatters").length,
+      id: "devops",
+      name: "DevOps",
+      count: skills.filter((s) => s.category === "devops").length,
     },
     {
-      id: "source-control",
-      name: "Source Control",
-      count: extensions.filter((e) => e.category === "source-control").length,
-    },
-    {
-      id: "other",
-      name: "Other",
-      count: extensions.filter((e) => e.category === "other").length,
+      id: "cloud",
+      name: "Cloud",
+      count: skills.filter((s) => s.category === "cloud").length,
     },
   ];
 
-  const toggleInstall = (extensionId: string) => {
-    setExtensions((prev) =>
-      prev.map((ext) =>
-        ext.id === extensionId ? { ...ext, installed: !ext.installed } : ext
+  const toggleAcquired = (skillId: string) => {
+    setSkills((prev) =>
+      prev.map((skill) =>
+        skill.id === skillId ? { ...skill, acquired: !skill.acquired } : skill
       )
     );
   };
 
-  const formatDownloads = (downloads: number) => {
-    if (downloads >= 1000000) {
-      return `${(downloads / 1000000).toFixed(1)}M`;
-    } else if (downloads >= 1000) {
-      return `${(downloads / 1000).toFixed(0)}K`;
+  const getLevelColor = (level: string) => {
+    switch (level) {
+      case "Expert":
+        return "#10b981";
+      case "Advanced":
+        return "#3b82f6";
+      case "Intermediate":
+        return "#f59e0b";
+      case "Beginner":
+        return "#ef4444";
+      default:
+        return "#6b7280";
     }
-    return downloads.toString();
   };
 
-  const renderStars = (rating: number) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<VscStarFull key={i} className={styles.starFilled} />);
-    }
-
-    if (hasHalfStar) {
-      stars.push(<VscStarFull key="half" className={styles.starHalf} />);
-    }
-
-    const emptyStars = 5 - Math.ceil(rating);
-    for (let i = 0; i < emptyStars; i++) {
-      stars.push(
-        <VscStarEmpty key={`empty-${i}`} className={styles.starEmpty} />
-      );
-    }
-
-    return stars;
+  const renderProficiencyBar = (proficiency: number) => {
+    return (
+      <div className={styles.proficiencyBar}>
+        <div
+          className={styles.proficiencyFill}
+          style={{ width: `${proficiency}%` }}
+        />
+      </div>
+    );
   };
 
-  const filteredExtensions = extensions.filter((ext) => {
+  const filteredSkills = skills.filter((skill) => {
     const matchesSearch =
-      ext.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ext.publisher.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ext.description.toLowerCase().includes(searchTerm.toLowerCase());
+      skill.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      skill.level.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      skill.description.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesCategory =
       selectedCategory === "all" ||
-      (selectedCategory === "installed" && ext.installed) ||
-      ext.category === selectedCategory;
+      (selectedCategory === "acquired" && skill.acquired) ||
+      skill.category === selectedCategory;
 
     return matchesSearch && matchesCategory;
   });
@@ -226,7 +214,7 @@ const ExtensionsPanel = () => {
   return (
     <div className={styles.extensionsPanel}>
       <div className={styles.header}>
-        <span>EXTENSIONS</span>
+        <span>SKILLS & EXPERTISE</span>
         <button className={styles.refreshButton}>
           <VscRefresh />
         </button>
@@ -237,7 +225,7 @@ const ExtensionsPanel = () => {
           <VscSearch className={styles.searchIcon} />
           <input
             type="text"
-            placeholder="Search Extensions in Marketplace"
+            placeholder="Search Skills and Technologies"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className={styles.searchInput}
@@ -259,59 +247,61 @@ const ExtensionsPanel = () => {
         ))}
       </div>
 
-      <div className={styles.extensionsList}>
-        {filteredExtensions.map((extension) => (
-          <div key={extension.id} className={styles.extensionItem}>
-            <div className={styles.extensionHeader}>
-              <div className={styles.extensionIcon}>{extension.icon}</div>
-              <div className={styles.extensionInfo}>
-                <div className={styles.extensionName}>{extension.name}</div>
-                <div className={styles.extensionPublisher}>
-                  <VscAccount className={styles.publisherIcon} />
-                  {extension.publisher}
+      <div className={styles.skillsList}>
+        {filteredSkills.map((skill) => (
+          <div key={skill.id} className={styles.skillItem}>
+            <div className={styles.skillHeader}>
+              <div className={styles.skillIcon}>{skill.icon}</div>
+              <div className={styles.skillInfo}>
+                <div className={styles.skillName}>{skill.name}</div>
+                <div className={styles.skillLevel}>
+                  <span
+                    className={styles.levelBadge}
+                    style={{ backgroundColor: getLevelColor(skill.level) }}
+                  >
+                    {skill.level}
+                  </span>
+                  <span className={styles.experience}>{skill.experience}</span>
                 </div>
               </div>
               <button
-                className={`${styles.installButton} ${
-                  extension.installed ? styles.installed : ""
+                className={`${styles.acquiredButton} ${
+                  skill.acquired ? styles.acquired : ""
                 }`}
-                onClick={() => toggleInstall(extension.id)}
+                onClick={() => toggleAcquired(skill.id)}
               >
-                {extension.installed ? (
+                {skill.acquired ? (
                   <>
-                    <VscCheck /> Installed
+                    <VscCheck /> Acquired
                   </>
                 ) : (
                   <>
-                    <VscCloudDownload /> Install
+                    <VscCloudDownload /> Learning
                   </>
                 )}
               </button>
             </div>
 
-            <div className={styles.extensionDescription}>
-              {extension.description}
-            </div>
+            <div className={styles.skillDescription}>{skill.description}</div>
 
-            <div className={styles.extensionMeta}>
-              <div className={styles.rating}>
-                {renderStars(extension.rating)}
-                <span className={styles.ratingText}>({extension.rating})</span>
+            <div className={styles.skillMeta}>
+              <div className={styles.proficiencySection}>
+                <span className={styles.proficiencyLabel}>Proficiency</span>
+                {renderProficiencyBar(skill.proficiency)}
               </div>
-              <div className={styles.downloads}>
-                <VscCloudDownload className={styles.downloadIcon} />
-                {formatDownloads(extension.downloads)}
+              <div className={styles.yearsExperience}>
+                {skill.yearsOfExperience}{" "}
+                {skill.yearsOfExperience === 1 ? "year" : "years"} experience
               </div>
-              <div className={styles.version}>v{extension.version}</div>
             </div>
           </div>
         ))}
       </div>
 
-      {filteredExtensions.length === 0 && (
+      {filteredSkills.length === 0 && (
         <div className={styles.noResults}>
           <VscExtensions className={styles.noResultsIcon} />
-          <div className={styles.noResultsText}>No extensions found</div>
+          <div className={styles.noResultsText}>No skills found</div>
           <div className={styles.noResultsSubtext}>
             Try adjusting your search terms or category filter
           </div>
