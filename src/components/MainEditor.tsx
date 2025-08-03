@@ -1,3 +1,4 @@
+import React, { useRef } from "react";
 import TabBar from "./TabBar";
 import ReactMarkdown from "react-markdown";
 import styles from "./MainEditor.module.css";
@@ -14,6 +15,7 @@ interface MainEditorProps {
   activeTab: string;
   onTabClick: (tabId: string) => void;
   onTabClose: (tabId: string) => void;
+  style?: React.CSSProperties;
 }
 
 const MainEditor = ({
@@ -21,11 +23,20 @@ const MainEditor = ({
   activeTab,
   onTabClick,
   onTabClose,
+  style,
 }: MainEditorProps) => {
   const activeTabContent = tabs.find((tab) => tab.id === activeTab);
+  const lineNumbersRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLDivElement;
+    if (lineNumbersRef.current) {
+      lineNumbersRef.current.scrollTop = target.scrollTop;
+    }
+  };
 
   return (
-    <div className={styles.mainEditor}>
+    <div className={styles.mainEditor} style={style}>
       <TabBar
         tabs={tabs}
         activeTab={activeTab}
@@ -35,33 +46,35 @@ const MainEditor = ({
       <div className={styles.editorArea}>
         {activeTabContent ? (
           <div className={styles.editorContent}>
-            <div className={styles.lineNumbers}>
+            <div className={styles.lineNumbers} ref={lineNumbersRef}>
               {activeTabContent.content.split("\n").map((_, index) => (
                 <div key={index + 1} className={styles.lineNumber}>
                   {index + 1}
                 </div>
               ))}
             </div>
-            <div className={styles.codeArea}>
-              {activeTabContent.language === "markdown" ? (
-                <div className={styles.markdownContent}>
-                  <ReactMarkdown
-                    components={{
-                      a: ({ node, ...props }) => (
-                        <a
-                          {...props}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        />
-                      ),
-                    }}
-                  >
-                    {activeTabContent.content}
-                  </ReactMarkdown>
-                </div>
-              ) : (
-                <pre className={styles.code}>{activeTabContent.content}</pre>
-              )}
+            <div className={styles.codeArea} onScroll={handleScroll}>
+              <div className={styles.codeContent}>
+                {activeTabContent.language === "markdown" ? (
+                  <div className={styles.markdownContent}>
+                    <ReactMarkdown
+                      components={{
+                        a: ({ ...props }) => (
+                          <a
+                            {...props}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          />
+                        ),
+                      }}
+                    >
+                      {activeTabContent.content}
+                    </ReactMarkdown>
+                  </div>
+                ) : (
+                  <pre className={styles.code}>{activeTabContent.content}</pre>
+                )}
+              </div>
             </div>
           </div>
         ) : (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import ActivityBar from "@/components/ActivityBar";
 import Sidebar from "@/components/Sidebar";
 import SearchPanel from "@/components/SearchPanel";
@@ -48,9 +48,53 @@ export default function Home() {
 
   const [activeTab, setActiveTab] = useState("about.md");
   const [activeActivity, setActiveActivity] = useState("explorer");
+  const [sidebarWidth, setSidebarWidth] = useState(250);
+  const [isResizing, setIsResizing] = useState(false);
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(
     new Set(["projects"])
   );
+
+  const handleMouseDown = () => {
+    setIsResizing(true);
+  };
+
+  const handleMouseMove = React.useCallback(
+    (e: MouseEvent) => {
+      if (!isResizing) return;
+
+      const newWidth = e.clientX - 48; // ActivityBarの幅（48px）を引く
+      if (newWidth >= 200 && newWidth <= 600) {
+        setSidebarWidth(newWidth);
+      }
+    },
+    [isResizing]
+  );
+
+  const handleMouseUp = () => {
+    setIsResizing(false);
+  };
+
+  // マウスイベントのリスナーを設定
+  React.useEffect(() => {
+    if (isResizing) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "col-resize";
+      document.body.style.userSelect = "none";
+    } else {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    }
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+  }, [isResizing, handleMouseMove]);
 
   const fileContents: FileContent = {
     "about.md": {
@@ -642,16 +686,33 @@ Experienced in building responsive web applications using React, TypeScript, and
     },
   };
 
-  const handleFileClick = (fileName: string, options?: { fromSearch?: boolean; switchToExplorer?: boolean }) => {
+  const handleFileClick = (
+    fileName: string,
+    options?: { fromSearch?: boolean; switchToExplorer?: boolean }
+  ) => {
     const fileContent = fileContents[fileName];
     if (!fileContent) return;
 
     // 検索からのクリックの場合、必要なフォルダを開く（ビュー切り替えは制御可能）
     if (options?.fromSearch) {
       // projects内のファイルの場合、projectsフォルダを開く
-      const projectFiles = ["Othello.tsx", "Minesweeper.tsx", "Tetris.tsx", "Breaking-blocks.tsx", "Chess.tsx", "LightsOut.tsx", "TodoList.tsx", "AIHeadlines.tsx", "Chronicle.tsx", "花火大会オンライン.tsx", "ポケモン図鑑.tsx", "Fullstack-Template.tsx", "TsDaily.tsx"];
+      const projectFiles = [
+        "Othello.tsx",
+        "Minesweeper.tsx",
+        "Tetris.tsx",
+        "Breaking-blocks.tsx",
+        "Chess.tsx",
+        "LightsOut.tsx",
+        "TodoList.tsx",
+        "AIHeadlines.tsx",
+        "Chronicle.tsx",
+        "花火大会オンライン.tsx",
+        "ポケモン図鑑.tsx",
+        "Fullstack-Template.tsx",
+        "TsDaily.tsx",
+      ];
       if (projectFiles.includes(fileName)) {
-        setExpandedFolders(prev => new Set([...prev, "projects"]));
+        setExpandedFolders((prev) => new Set([...prev, "projects"]));
       }
       // switchToExplorerが明示的にtrueの場合のみExplorerに切り替え
       if (options.switchToExplorer) {
@@ -703,27 +764,50 @@ Experienced in building responsive web applications using React, TypeScript, and
         activeActivity={activeActivity}
         onActivityChange={handleActivityChange}
       />
-      {activeActivity === "explorer" && (
-        <Sidebar 
-          onFileClick={handleFileClick} 
-          expandedFolders={expandedFolders}
-          setExpandedFolders={setExpandedFolders}
-        />
-      )}
-      {activeActivity === "search" && (
-        <SearchPanel onFileClick={(fileName) => handleFileClick(fileName, { fromSearch: true })} />
-      )}
-      {activeActivity === "source-control" && (
-        <SourceControlPanel />
-      )}
-      {activeActivity === "extensions" && (
-        <ExtensionsPanel />
+      {(activeActivity === "explorer" ||
+        activeActivity === "search" ||
+        activeActivity === "source-control" ||
+        activeActivity === "extensions") && (
+        <>
+          <div
+            className={styles.sidebarContainer}
+            style={{ width: sidebarWidth }}
+          >
+            {activeActivity === "explorer" && (
+              <Sidebar
+                onFileClick={handleFileClick}
+                expandedFolders={expandedFolders}
+                setExpandedFolders={setExpandedFolders}
+              />
+            )}
+            {activeActivity === "search" && (
+              <SearchPanel
+                onFileClick={(fileName) =>
+                  handleFileClick(fileName, { fromSearch: true })
+                }
+              />
+            )}
+            {activeActivity === "source-control" && <SourceControlPanel />}
+            {activeActivity === "extensions" && <ExtensionsPanel />}
+          </div>
+          <div className={styles.resizer} onMouseDown={handleMouseDown} />
+        </>
       )}
       <MainEditor
         tabs={tabs}
         activeTab={activeTab}
         onTabClick={handleTabClick}
         onTabClose={handleTabClose}
+        style={{
+          width: `calc(100vw - 48px - ${
+            activeActivity === "explorer" ||
+            activeActivity === "search" ||
+            activeActivity === "source-control" ||
+            activeActivity === "extensions"
+              ? sidebarWidth + 1
+              : 0
+          }px)`,
+        }}
       />
     </div>
   );

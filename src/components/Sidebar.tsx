@@ -121,7 +121,7 @@ const Sidebar = ({
           <div className={styles.fileIcon}>
             {getFileIcon(item.name, item.type === "folder", isExpanded)}
           </div>
-          {item.name}
+          <span className={styles.fileNameText}>{item.name}</span>
         </div>
         {item.children && isExpanded && (
           <div

@@ -275,7 +275,9 @@ export default contact;`,
                     isExpanded ? styles.expanded : styles.collapsed
                   }`}
                 />
-                {fileName} ({results.length})
+                <span className={styles.fileNameText}>
+                  {fileName} ({results.length})
+                </span>
               </div>
               {isExpanded && (
                 <div className={styles.fileResults}>

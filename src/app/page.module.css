@@ -7,3 +7,36 @@
   font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
   overflow: hidden;
 }
+
+.sidebarContainer {
+  height: 100vh;
+  background-color: #252526;
+  border-right: 1px solid #3c3c3c;
+  overflow: hidden;
+}
+
+.resizer {
+  width: 1px;
+  height: 100vh;
+  background-color: #3c3c3c;
+  cursor: col-resize;
+  transition: background-color 0.2s ease;
+  position: relative;
+}
+
+.resizer::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  width: 5px;
+  height: 100%;
+  cursor: col-resize;
+}
+
+.resizer:hover {
+  background-color: #007acc;
+}
+
+.resizer:active {
+  background-color: #007acc;
+}
